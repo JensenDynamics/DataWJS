@@ -6,8 +6,13 @@ DataWJS is the Javascript browser based analog to the DataWS server library. Use
 ## Example
 
 ```JS
-setupConnection(192.168.1.5,5598);   //sets up a connection to ip 192.168.1.5 on port 5598
+ws = setupConnection("192.168.1.5","5598");   //sets up a connection to ip 192.168.1.5 on port 5598
 
+sendData(ws,dataArray); //sends dataArray to the connection setup ws 
 
+//user defined callback function fires when server pushes data.
+receiveData(ws){
+
+}
 
 ```
