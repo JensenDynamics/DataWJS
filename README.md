@@ -10,9 +10,8 @@ ws = setupConnection("192.168.1.5","5598");   //sets up a connection to ip 192.1
 
 sendData(ws,dataArray); //sends dataArray to the connection setup ws 
 
-//user defined callback function fires when server pushes data.
-receiveData(ws){
+setupReceive(ws,callback);   //user defined callback function fires when server pushes data.
+//can this work? 
 
-}
 
 ```
