@@ -19,3 +19,19 @@ function setupConnection(ip,port)
 	
 return ws;
 }
+
+
+//can I pass the function this way?
+function setupReceive(ws,&user_callback)
+{
+	ws.onmessage = function(event) {
+		if(event.data instanceof ArrayBuffer)
+		{
+		buffer  = event.data;
+		var z = new Float32Array(buffer);
+
+		user_callback(z);
+		}
+	};
+	
+}
