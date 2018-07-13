@@ -1,37 +1,45 @@
-//DataWJS Main Code Repository 
+//DataWJS Main Code Repository
 
-function get_current_ip_address() // returns the ip address of the current device
+//defines the DWJS main class:
+var DWJS = {}
+
+//sets up a connection to a particular ip and port.
+// returns the socket handle
+//. type refers to datatype transmitted. pass a string containing the type name
+// types may be the following:
+// "float" "double" "int"
+DWJS.setupConnection = function(ip,port,type)
 {
-	console.log(window.location.hostname);
-	return window.location.hostname;
-}
-
-
-
-
-//sets up a connection to a particular ip and port. 
-// returns the socket handle 
-function setupConnection(ip,port)
-{	
 	var ip_address = 'ws://' + ip + ":"+port+"/";
 	var ws = new WebSocket(ip_address);
 	ws.binaryType="arraybuffer";
-	
-return ws;
+
+	return ws;
 }
 
+//send data to the server:
+DWJS.sendData = function(ws,DataArray)
+{
+	ws.send(DataArray);
+}
 
-//can I pass the function this way?
-function setupReceive(ws,&user_callback)
+//user must define a callback function and setup the function here:
+// the function must take in an array of the same datatype as its input
+DWJS.setupReceive = function(ws,userCallback)
 {
 	ws.onmessage = function(event) {
 		if(event.data instanceof ArrayBuffer)
 		{
 		buffer  = event.data;
 		var z = new Float32Array(buffer);
+		if(hasUserCallback)
+		{
+		userCallback(z);
+		}
 
-		user_callback(z);
 		}
 	};
-	
+
 }
+
+//send data
